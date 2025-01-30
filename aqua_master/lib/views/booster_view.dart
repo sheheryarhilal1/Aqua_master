@@ -2,20 +2,6 @@ import 'package:aqua_master/views/cooler_views.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp4());
-}
-
-class MyApp4 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DXUnitControl4(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 class DXUnitController4 extends GetxController {
   var mode = "On".obs; // Default mode is "On"
 
@@ -73,7 +59,7 @@ class DXUnitControl4 extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () => Get.to(() => CoolerView()),
+              onPressed: () => Get.off(() => CoolerView()),
               child: Text(
                 'Close',
                 style: TextStyle(
@@ -87,15 +73,52 @@ class DXUnitControl4 extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey[900],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            // Replace the Icon with Image
-          ],
-        ),
+      body: Stack(
+        fit: StackFit.expand, // Ensure the image covers the whole screen
+        children: [
+          // Background image
+          Image.asset(
+            'assets/mobile.jpg', // Path to your image
+            fit: BoxFit.cover, // Make sure the image covers the entire screen
+          ),
+          // Foreground content
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                // Your widgets here, for example:
+                Text(
+                  'DX Unit Control',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: controller.toggleMode,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF2980B9), // Solid Blue color
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Obx(() => Text(
+                        'Mode: ${controller.mode.value}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      )),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

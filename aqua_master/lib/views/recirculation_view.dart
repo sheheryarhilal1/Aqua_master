@@ -2,20 +2,6 @@ import 'package:aqua_master/views/cooler_views.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp6());
-}
-
-class MyApp6 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DXUnitControl6(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 class DXUnitController6 extends GetxController {
   var mode = "On".obs; // Default mode is "On"
 
@@ -73,7 +59,7 @@ class DXUnitControl6 extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () => Get.to(() => CoolerView()),
+              onPressed: () => Get.off(() => CoolerView()),
               child: Text(
                 'Close',
                 style: TextStyle(
@@ -87,14 +73,21 @@ class DXUnitControl6 extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey[900],
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            // Replace the Icon with Image
-          ],
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/mobile.jpg'), // Path to your image
+            fit: BoxFit.cover, // Ensure the image covers the entire screen
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // You can add any widgets you need here
+            ],
+          ),
         ),
       ),
     );

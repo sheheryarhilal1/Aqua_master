@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp3());
-}
-
-class MyApp3 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DXUnitControl3(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 class DXUnitController3 extends GetxController {
   var temperature = 32.0.obs;
   var mode = "On".obs; // Default mode is "On"
@@ -57,156 +43,158 @@ class DXUnitControl3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[900],
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(30),
-          decoration: BoxDecoration(
-            color: Color(0xFF3B3B52),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.7),
-                spreadRadius: 2,
-                blurRadius: 15,
-                offset: Offset(0, 8),
-              ),
-            ],
+      body: Stack(
+        children: [
+          // Background Image
+          Image.asset(
+            'assets/mobile.jpg', // Your background image path
+            fit: BoxFit.cover,
+            height: double.infinity, // Make sure it fills the screen
+            width: double.infinity,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // Replace the Icon with Image
-              Image.asset(
-                'assets/fan.png', // Path to your image
-                width: 160,
-                height: 80,
+          // Overlay Container with information
+          Center(
+            child: Container(
+              padding: EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [],
               ),
-              SizedBox(height: 10),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    // Image inside the container
+                    Image.asset(
+                      "assets/Cooling-PNG-Clipart.png", // Path to your image
+                      width: 160,
+                      height: 80, color: Colors.black,
+                    ),
+                    SizedBox(height: 10),
 
-              // Title
-              Text(
-                'Cooler',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF00D2FF),
+                    // Title
+                    Text(
+                      'Cooler',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF00D2FF),
+                      ),
+                    ),
+                    SizedBox(height: 30),
+
+                    // Temperature control section
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                onPressed: () => controller.adjustTemp(1),
+                                style: ElevatedButton.styleFrom(
+                                  shape: CircleBorder(),
+                                  backgroundColor:
+                                      Color(0xFFFF4B4B), // Solid Red color
+                                  padding: EdgeInsets.all(20),
+                                ),
+                                child: Text(
+                                  '+',
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Obx(() => Text(
+                                  '${controller.temperature.toStringAsFixed(0)}°C',
+                                  style: TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () => controller.adjustTemp(-1),
+                              style: ElevatedButton.styleFrom(
+                                shape: CircleBorder(),
+                                backgroundColor:
+                                    Color(0xFF4CAF50), // Solid Green color
+                                padding: EdgeInsets.all(20),
+                              ),
+                              child: Text(
+                                '−',
+                                style: TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 50),
+
+                    // Mode and Set Point Options
+                    Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: controller.toggleMode,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Color(0xFF2980B9), // Solid Blue color
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Obx(() => Text(
+                                'Mode: ${controller.mode.value}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              )),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: controller.toggleSetPoint,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                Color(0xFF2980B9), // Solid Blue color
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Obx(() => Text(
+                                'Set Point: ${controller.setPoint.value}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              )),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 30),
-
-              // Temperature control section
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(
-                            8.0), // Adjust padding as needed
-                        child: ElevatedButton(
-                          onPressed: () => controller.adjustTemp(1),
-                          style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            backgroundColor:
-                                Color(0xFFFF4B4B), // Solid Red color
-                            padding: EdgeInsets.all(
-                                20), // Adjust padding inside button
-                          ),
-                          child: Text(
-                            '+',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0), // Space between buttons and text
-                        child: Obx(() => Text(
-                              '${controller.temperature.toStringAsFixed(0)}°C',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(
-                            8.0), // Adjust padding as needed
-                        child: ElevatedButton(
-                          onPressed: () => controller.adjustTemp(-1),
-                          style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            backgroundColor:
-                                Color(0xFF4CAF50), // Solid Green color
-                            padding: EdgeInsets.all(
-                                20), // Adjust padding inside button
-                          ),
-                          child: Text(
-                            '−',
-                            style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: 50),
-
-              // Mode and Set Point Options
-              Column(
-                children: [
-                  ElevatedButton(
-                    onPressed: controller.toggleMode,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF2980B9), // Solid Blue color
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Obx(() => Text(
-                          'Mode: ${controller.mode.value}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        )),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: controller.toggleSetPoint,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF2980B9), // Solid Blue color
-                      padding:
-                          EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Obx(() => Text(
-                          'Set Point: ${controller.setPoint.value}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        )),
-                  ),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

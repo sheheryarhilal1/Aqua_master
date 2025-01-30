@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DXUnitControl(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
 class DXUnitController extends GetxController {
   var temperature = 32.0.obs;
   var mode = "On".obs; // Default mode is "On"
@@ -57,21 +43,17 @@ class DXUnitControl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[900],
       body: Center(
         child: Container(
           padding: EdgeInsets.all(30),
           decoration: BoxDecoration(
-            color: Color(0xFF3B3B52),
+            // Set the background image here
+            image: DecorationImage(
+              image: AssetImage('assets/mobile.jpg'), // Path to your image
+              fit: BoxFit.cover, // Ensures the image covers the container
+            ),
             borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.7),
-                spreadRadius: 2,
-                blurRadius: 15,
-                offset: Offset(0, 8),
-              ),
-            ],
+            boxShadow: [],
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

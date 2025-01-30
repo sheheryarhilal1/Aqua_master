@@ -5,7 +5,7 @@ class CustomContainer extends StatelessWidget {
   final String title;
   final bool text;
   final String temperature;
-  final String point;
+  
   final void Function() onTaptoggle;
   final void Function() gridTap;
   final bool color;
@@ -15,7 +15,7 @@ class CustomContainer extends StatelessWidget {
       required this.imagepath,
       required this.title,
       required this.temperature,
-      required this.point,
+  
       required this.onTaptoggle,
       required this.color,
       required this.gridTap,
@@ -31,8 +31,8 @@ class CustomContainer extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.2),
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.blue.withOpacity(0.5)),
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(color: Colors.blue.withOpacity(0.5), width: 8),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
@@ -61,11 +61,7 @@ class CustomContainer extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 10),
-              Text(
-                '$point ',
-                style: TextStyle(fontSize: 18),
-                textAlign: TextAlign.center,
-              ),
+              
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: onTaptoggle,

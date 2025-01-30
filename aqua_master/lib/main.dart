@@ -1,4 +1,4 @@
-import 'package:aqua_master/views/cooler_views.dart';
+import 'package:aqua_master/routs/routs.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,11 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Cooler Controller',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: CoolerView(),
+      initialRoute: Routes.splash,
+      getPages: AppRoutes.routes,
     );
   }
 }
